@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Review Submission</title>
+</head>
+<body>
+<img src="gs://sentiment-analysis-d3902.appspot.com/Movie_images/Deadpool_Wolverine.jpg" height="100" width="100">
+    <h1>Submit a Review</h1>
+    <form action="{{ url_for('submit_review') }}" method="POST">
+        <label for="movie">Movie Title:</label>
+        <input type="text" id="movie" name="movie" required>
+        <br><br>
+        <label for="review">Review:</label>
+        <textarea id="review" name="review" required></textarea>
+        <br><br>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <h2><a href="{{ url_for('movies_page') }}">See All Movies</a></h2>
+</body>
+</html>

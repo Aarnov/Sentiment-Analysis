@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews for {{ title }}</title>
+</head>
+<body>
+    <h1>Reviews for "{{ title }}"</h1>
+    <ul>
+        {% for review in reviews %}
+            <li>{{ review }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('movies_page') }}">Back to All Movies</a>
+    <a href="{{ url_for('index') }}">Back to Submit Review</a>
+</body>
+</html>
