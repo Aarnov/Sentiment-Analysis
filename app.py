@@ -15,7 +15,7 @@ def moviegrid_page():
     return render_template('moviegrid.html', movies=movies)
 
 
-@app.route('/moviesingle.html')
+@app.route('/moviesingle')
 def movie_single():
     movie_id = request.args.get('id')  # Get movie ID from URL parameters
     movie = get_movie_by_id(movie_id)  # Fetch movie details from Firebase
