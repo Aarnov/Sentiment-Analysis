@@ -1,5 +1,5 @@
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore,auth
 
 # Firebase setup (already existing in your project)
 cred = credentials.Certificate("app/firebase/firebase_credentials.json")
@@ -31,4 +31,27 @@ def get_movie_by_id(movie_id):
             return None
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None
+
+
+def create_user(email, password):
+    try:
+        user = auth.create_user(email=email, password=password)
+        print(f"Successfully created user: {user.uid}")
+        return user.uid
+    except Exception as e:
+        print(f"Error creating user: {e}")
+        return None
+
+
+def authenticate_user(email, password):
+    try:
+        user = auth.get_user_by_email(email)
+        if user:
+            return user.uid
+        else:
+            print(f"No user found with email: {email}")
+            return None
+    except Exception as e:
+        print(f"Error authenticating user: {e}")
         return None

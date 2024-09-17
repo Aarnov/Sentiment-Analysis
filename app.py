@@ -16,14 +16,18 @@ def moviegrid_page():
     return render_template('moviegrid.html', movies=movies)
 
 
-@app.route('/moviesingle')
-def movie_single():
-    movie_id = request.args.get('id')  # Get movie ID from URL parameters
-    movie = get_movie_by_id(movie_id)  # Fetch movie details from Firebase
+@app.route('/moviesingle/<id>')
+def moviesingle_page(id):
+    movie = get_movie_by_id(id)  # Fetch movie details from Firebase
     if movie:
         return render_template('moviesingle.html', movie=movie)
     else:
         return render_template('404.html')  # Show 404 page if movie not found
+
+
+@app.route('/404.html')
+def error404():
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
