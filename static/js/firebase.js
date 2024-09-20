@@ -12,7 +12,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
-
+const db = firebase.firestore();
 // Signup function
 // Firebase Auth state listener to toggle between login/signup and signout buttons
 firebase.auth().onAuthStateChanged((user) => {
@@ -31,10 +31,11 @@ firebase.auth().onAuthStateChanged((user) => {
 
 // Signup function
 function signupUser(event) {
-    event.preventDefault();  // Prevent form from submitting normally
+    event.preventDefault();
     const email = document.getElementById('signupEmail').value;
     const password = document.getElementById('signupPassword').value;
     const repassword = document.getElementById('repassword-2').value;
+    const username = document.getElementById('signupName').value;  // Get the username
 
     // Ensure password and re-type password match
     if (password !== repassword) {
@@ -42,18 +43,26 @@ function signupUser(event) {
         return;
     }
 
-    // Firebase create user with email and password
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            // User signed up successfully
-            alert('User signed up successfully!');
+ firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Add user to Firestore database
+        db.collection('users').doc(user.uid).set({
+            username: username,
+            email: email,
+            signupDate: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            alert('User signed up and added to Firestore successfully!');
             document.getElementById('signupForm').reset();  // Reset form
-        })
-        .catch((error) => {
-            // Handle signup error
-            const errorMessage = error.message;
-            alert('Signup error: ' + errorMessage);
+        }).catch((error) => {
+            console.error("Error adding user to Firestore: ", error);
         });
+    })
+    .catch((error) => {
+        const errorMessage = error.message;
+        alert('Signup error: ' + errorMessage);
+    });
 }
 
 // Login function
@@ -68,6 +77,7 @@ function loginUser(event) {
             // User logged in successfully
             alert('User logged in successfully!');
             document.getElementById('loginForm').reset();  // Reset form
+
         })
         .catch((error) => {
             // Handle login error
@@ -90,3 +100,5 @@ document.getElementById('signout-btn').addEventListener('click', (e) => {
     e.preventDefault();
     signoutUser();
 });
+
+

@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
-from app.firebase_utils import get_all_movies,get_movie_by_id
+from flask import Flask, render_template
+from app.firebase_utils import get_all_movies,get_movie_by_id,get_reviews_by_movie_id
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -18,9 +18,14 @@ def moviegrid_page():
 
 @app.route('/moviesingle/<id>')
 def moviesingle_page(id):
-    movie = get_movie_by_id(id)  # Fetch movie details from Firebase
+
+    # Fetch movie details and reviews
+    movie = get_movie_by_id(id)
+    reviews = get_reviews_by_movie_id(id)
+
+
     if movie:
-        return render_template('moviesingle.html', movie=movie)
+        return render_template('moviesingle.html', movie=movie,reviews=reviews)
     else:
         return render_template('404.html')  # Show 404 page if movie not found
 

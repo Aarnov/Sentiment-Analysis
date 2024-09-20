@@ -34,24 +34,8 @@ def get_movie_by_id(movie_id):
         return None
 
 
-def create_user(email, password):
-    try:
-        user = auth.create_user(email=email, password=password)
-        print(f"Successfully created user: {user.uid}")
-        return user.uid
-    except Exception as e:
-        print(f"Error creating user: {e}")
-        return None
-
-
-def authenticate_user(email, password):
-    try:
-        user = auth.get_user_by_email(email)
-        if user:
-            return user.uid
-        else:
-            print(f"No user found with email: {email}")
-            return None
-    except Exception as e:
-        print(f"Error authenticating user: {e}")
-        return None
+def get_reviews_by_movie_id(movie_id):
+    # Fetch all reviews for a specific movie
+    reviews_ref = db.collection('Movies').document(movie_id).collection('reviews')
+    docs = reviews_ref.stream()
+    return [doc.to_dict() for doc in docs]

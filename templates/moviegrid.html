@@ -14,6 +14,9 @@
 	<title>Open Pediatrics</title>
 		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -67,13 +70,17 @@
 <!--end of login form popup-->
 
 <!--end of login form popup-->
-<!--signup form popup-->
-<!--signup form popup-->
 <div class="login-wrapper" id="signup-content">
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>sign up</h3>
         <form id="signupForm" onsubmit="signupUser(event)">
+            <div class="row">
+        		 <label for="signupName">
+                    Username:
+                    <input type="text" name="username" id="signupName" placeholder="Aarnov Adhikari" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                </label>
+            </div>
 
 
             <div class="row">
@@ -103,6 +110,7 @@
         </form>
     </div>
 </div>
+<!--end of signup form popup-->
 <!--end of signup form popup-->
 <!-- BEGIN | Header -->
 <header class="ht-header">
@@ -184,7 +192,7 @@
 						<option value="range">20 Movies</option>
 						<option value="saab">10 Movies</option>
 					</select>
-					
+
 					<div class="pagination2">
 						<span>Page 1 of 2:</span>
 						<a class="active" href="#">1</a>
@@ -214,7 +222,7 @@
 			<div class="flex-child-ft item2">
 				<h4>Resources</h4>
 				<ul>
-					<li><a href="#">About</a></li> 
+					<li><a href="#">About</a></li>
 					<li><a href="#">Blockbuster</a></li>
 					<li><a href="#">Contact Us</a></li>
 					<li><a href="#">Forums</a></li>
@@ -225,16 +233,16 @@
 			<div class="flex-child-ft item3">
 				<h4>Legal</h4>
 				<ul>
-					<li><a href="#">Terms of Use</a></li> 
-					<li><a href="#">Privacy Policy</a></li>	
+					<li><a href="#">Terms of Use</a></li>
+					<li><a href="#">Privacy Policy</a></li>
 					<li><a href="#">Security</a></li>
 				</ul>
 			</div>
 			<div class="flex-child-ft item4">
 				<h4>Account</h4>
 				<ul>
-					<li><a href="#">My Account</a></li> 
-					<li><a href="#">Watchlist</a></li>	
+					<li><a href="#">My Account</a></li>
+					<li><a href="#">Watchlist</a></li>
 					<li><a href="#">Collections</a></li>
 					<li><a href="#">User Guide</a></li>
 				</ul>
